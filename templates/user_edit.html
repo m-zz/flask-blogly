@@ -3,7 +3,7 @@
   {% block content %}
 
   <h2>Edit a User</h2>
-  <form action="#" method="POST">
+  <form action="/users/{{user.id}}/edit" method="POST">
     <div class="mb-3">
       <label class="form-label">First Name:</label>
       <input type="text" class="form-control" name="f_name">
@@ -13,8 +13,8 @@
       <input type="text" class="form-control" name="img_url">
     </div>
 
-    <a href="/user/{{user.id}}" class="btn btn-light btn-lg disabled" tabindex="-1" role="button" aria-disabled="true">Cancel</a>
-    <button type="submit" class="btn btn-success">Add</button>
+    <a href="/users/{{user.id}}" class="btn btn-light btn-lg" tabindex="-1" role="button" aria-disabled="true">Cancel</a>
+    <button type="submit" class="btn btn-success">Submit</button>
   </form>
   
 
