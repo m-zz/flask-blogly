@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+  
+  {% block content %}
+
+  <h2>Edit a tag</h2>
+  <form action="/" method="POST">
+    <div class="mb-3">
+      <label class="form-label">Name</label>
+      <input value= "{{tag.name}}" type="text" class="form-control" name="t_name">
+    </div>
+
+    <a href="" class="btn btn-light btn-lg" tabindex="-1" role="button" aria-disabled="true">Cancel</a>
+    <button type="submit" class="btn btn-success">Edit</button>
+  </form>
+  
+
+  {% endblock %}

@@ -5,7 +5,12 @@
 
   <p>{{ post.content }}</p>
 
-  <p>By {{post.user.first_name}} {{post.user.last_name}}</p>
+  <p>By {{post.user.first_name}} {{post.user.last_name}} on {{post.created_at}}</p>
+
+  <b>Tags:</b>
+    {% for tag in post.tags %}
+      <span class="badge bg-primary">{{ tag.name }}</span>
+    {% endfor %}
 
   <a href="/posts/{{ post.id }}/edit" class="btn btn-primary btn-lg" tabindex="-1" role="button" aria-disabled="true">Edit</a>
   <a href="/posts/{{ post.id }}/delete" class="btn btn-danger btn-lg" tabindex="-1" role="button" aria-disabled="true">Delete</a>

@@ -10,10 +10,19 @@
       <label class="form-label">Content:</label>
       <input type="text" class="form-control" name="p_content" placeholder="Your content here!">
     </div>
+    
+    <div class="form-check">
+      {% for tag in all_tags %}
+        <input class="form-check-input" type="checkbox" name="{{tag.name}}" value="">
+        <label class="form-check-label">
+          {{ tag.name }} </label>
+      {% endfor %}
+    </div>
+
+
 
     <a href="/users/{{user.id}}" class="btn btn-light btn-lg" tabindex="-1" role="button" aria-disabled="true">Cancel</a>
     <button type="submit" class="btn btn-success">Add</button>
   </form>
   
-
   {% endblock %}
