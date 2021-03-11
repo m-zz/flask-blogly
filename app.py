@@ -1,7 +1,7 @@
 """Blogly application."""
 
 from flask import Flask, request, redirect, flash, render_template
-from models import db, connect_db, User
+from models import db, connect_db, User, Post
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///blogly'
@@ -27,7 +27,7 @@ def home():
 def userlist():
 
     users = User.query.all()
-    return render_template('list.html', users=users)
+    return render_template('user_list.html', users=users)
 
 
 @app.route("/users/new", methods = ['POST','GET'])
@@ -84,3 +84,53 @@ def delete_user(user_id):
     User.query.filter(User.id == user_id).delete()
     db.session.commit()
     return redirect('/users')
+
+@app.route('/users/<int:user_id>/posts/new', methods = ['POST', 'GET'])
+def post_form_for_user(user_id):
+    
+    user = User.query.get(user_id)
+    if request.method == 'GET':
+        return render_template('post_form.html', user = user)
+
+    p_title = request.form['p_title']
+    p_content = request.form['p_content']
+
+    post = Post(title = p_title, content = p_content, user_id = user_id)
+
+    db.session.add(post)
+    db.session.commit()
+
+    return redirect(f'/users/{user_id}')
+
+@app.route('/posts/<int:post_id>')
+def get_post(post_id):
+
+    post = Post.query.get(post_id)
+
+    return render_template('post_detail.html', post = post)
+
+
+@app.route('/posts/<int:post_id>/edit', methods=['GET', 'POST'])
+def edit_post(post_id):
+
+    post = Post.query.get(post_id)
+
+    if request.method == 'POST':
+        # make changes
+        post.title = request.form['p_title']
+        post.content = request.form['p_content']
+        
+        db.session.commit()
+        # redirect to the user page
+        return redirect(f'/users/{post.user.id}')
+    
+    return render_template('post_edit.html', post = post)
+
+
+@app.route('/posts/<int:post_id>/delete')
+def delete_post(post_id):
+    user_id = Post.query.get(post_id).user_id
+    Post.query.filter(Post.id == post_id).delete()
+    
+    db.session.commit()
+    return redirect(f'/users/{user_id}')
