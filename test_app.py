@@ -74,4 +74,8 @@ class BloglyTestCase(TestCase):
             html = response.get_data(as_text=True)
             self.assertIn('Disneyworld!', html)
 
-# delete test
+    def test_delete_post(self):
+        with self.client as client:
+            response = client.post("/posts/2/delete")
+            html = response.get_data(as_text=True)
+            self.assertNotIn('Disneyworld!', html)

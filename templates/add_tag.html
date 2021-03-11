@@ -3,13 +3,13 @@
   {% block content %}
 
   <h2>Create a tag</h2>
-  <form action="/" method="POST">
+  <form action="/tags/new" method="POST">
     <div class="mb-3">
       <label class="form-label">Name</label>
       <input type="text" class="form-control" name="t_name" placeholder="Enter a name for the tag">
     </div>
 
-    <a href="/users/{{user.id}}" class="btn btn-light btn-lg" tabindex="-1" role="button" aria-disabled="true">Cancel</a>
+    <a href="/tags" class="btn btn-light btn-lg" tabindex="-1" role="button" aria-disabled="true">Cancel</a>
     <button type="submit" class="btn btn-success">Add</button>
   </form>
   

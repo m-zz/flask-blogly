@@ -32,6 +32,7 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime(timezone=True), nullable=False,
     default = db.func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    
     tags = db.relationship('Tag', secondary='posts_tags', backref = 'posts')
 
     user = db.relationship('User')

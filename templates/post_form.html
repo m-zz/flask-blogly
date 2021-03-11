@@ -11,13 +11,12 @@
       <input type="text" class="form-control" name="p_content" placeholder="Your content here!">
     </div>
     
+    {% for tag in all_tags %}
     <div class="form-check">
-      {% for tag in all_tags %}
         <input class="form-check-input" type="checkbox" name="{{tag.name}}" value="">
-        <label class="form-check-label">
-          {{ tag.name }} </label>
-      {% endfor %}
-    </div>
+        <label class="form-check-label"> {{ tag.name }} </label>
+      </div>
+    {% endfor %}
 
 
 
