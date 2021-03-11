@@ -15,9 +15,14 @@ db.create_all()
 @app.route("/")
 def home():
 
+    db.drop_all()
+    db.create_all()
+
     a = User(first_name='John', last_name='Smith')
     db.session.add(a)
     b = User(first_name='Mickey', last_name='Mouse')
+    p = Post(title="New Post", content="I'm the first post!")
+    b.posts.append(p)
     db.session.add(b)
     db.session.commit()
     return redirect('/users')
@@ -47,8 +52,7 @@ def new_user():
             last_name=request.form['l_name'])
 
 
-    
-    
+
     # f_name = request.form['f_name']
     # l_name = request.form['l_name']
     # img_url = request.form['img_url']

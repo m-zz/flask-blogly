@@ -6,9 +6,9 @@
   <form action="/posts/{{post.id}}/edit" method="POST">
     <div class="mb-3">
       <label class="form-label">Title:</label>
-      <input type="text" class="form-control" name="p_title" placeholder="Post Title">
+      <input value="{{post.title}}" type="text" class="form-control" name="p_title">
       <label class="form-label">Content:</label>
-      <input type="text" class="form-control" name="p_content" placeholder="Your content here!">
+      <input value="{{post.content}}" type="text" class="form-control" name="p_content">
     </div>
 
     <a href="/posts/{{post.id}}" class="btn btn-light btn-lg" tabindex="-1" role="button" aria-disabled="true">Cancel</a>
