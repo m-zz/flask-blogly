@@ -60,14 +60,14 @@ def new_user():
 
 @app.route('/users/<int:user_id>')
 def display_user(user_id):
-    user = User.query.get(user_id)
+    user = User.query.get_or_404(user_id)
     return render_template('user_detail.html', user=user)
 
 
 @app.route('/users/<int:user_id>/edit', methods=['GET', 'POST'])
 def edit_user(user_id):
 
-    user = User.query.get(user_id)
+    user = User.query.get_or_404(user_id)
     if request.method == 'POST':
         # make changes
         user.first_name = request.form['f_name']
@@ -81,6 +81,8 @@ def edit_user(user_id):
 
 @app.route('/users/<int:user_id>/delete')
 def delete_user(user_id):
+    
+    Post.query.filter(Post.user_id == user_id).delete()
     User.query.filter(User.id == user_id).delete()
     db.session.commit()
     return redirect('/users')
@@ -88,7 +90,7 @@ def delete_user(user_id):
 @app.route('/users/<int:user_id>/posts/new', methods = ['POST', 'GET'])
 def post_form_for_user(user_id):
     
-    user = User.query.get(user_id)
+    user = User.query.get_or_404(user_id)
     if request.method == 'GET':
         return render_template('post_form.html', user = user)
 
@@ -105,7 +107,7 @@ def post_form_for_user(user_id):
 @app.route('/posts/<int:post_id>')
 def get_post(post_id):
 
-    post = Post.query.get(post_id)
+    post = Post.query.get_or_404(post_id)
 
     return render_template('post_detail.html', post = post)
 
@@ -113,7 +115,7 @@ def get_post(post_id):
 @app.route('/posts/<int:post_id>/edit', methods=['GET', 'POST'])
 def edit_post(post_id):
 
-    post = Post.query.get(post_id)
+    post = Post.query.get_or_404(post_id)
 
     if request.method == 'POST':
         # make changes
@@ -129,7 +131,7 @@ def edit_post(post_id):
 
 @app.route('/posts/<int:post_id>/delete')
 def delete_post(post_id):
-    user_id = Post.query.get(post_id).user_id
+    user_id = Post.query.get_or_404(post_id).user_id
     Post.query.filter(Post.id == post_id).delete()
     
     db.session.commit()
